@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cp, mkdir, readFile, realpath, symlink, writeFile } from 'node:fs/promises';
+import { realpathSync } from 'node:fs';
+import { cp, mkdir, readFile, symlink, writeFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import * as asar from '@electron/asar';
 import { archiveFixture as fixture } from './fixture.mjs';
@@ -31,13 +32,13 @@ test('ASAR applies all eight patches, updates integrity, preserves other entries
 });
 test('plain Node can resolve DSH_BASE inside ASAR without Electron virtual fs',async t=>{
   const f=await fixture(t);const old=process.env.DSH_BASE;process.env.DSH_BASE=f.base;
-  try{assert.equal(findDshBase(),join(await realpath(f.archive),'dsh/node_modules/@deepseek-ai'));}finally{if(old===undefined)delete process.env.DSH_BASE;else process.env.DSH_BASE=old;}
+  try{assert.equal(findDshBase(),join(realpathSync(f.archive),'dsh/node_modules/@deepseek-ai'));}finally{if(old===undefined)delete process.env.DSH_BASE;else process.env.DSH_BASE=old;}
 });
 test('ASAR path aliases use the same canonical base for apply, inspect and revert', async context => {
   const fixture = await archiveFixtureAlias(context);
   const before = await readFile(fixture.archive);
   const result = applyPatches(fixture.aliasBase, fixture.backups);
-  assert.equal(result.base, join(await realpath(fixture.archive), 'dsh/node_modules/@deepseek-ai'));
+  assert.equal(result.base, join(realpathSync(fixture.archive), 'dsh/node_modules/@deepseek-ai'));
   assert.ok(inspectPatches(fixture.aliasBase).patches.every(patch => patch.applied));
   revertPatches(result.backup, fixture.aliasBase);
   assert.deepEqual(await readFile(fixture.archive), before);
