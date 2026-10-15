@@ -1,6 +1,6 @@
 {
   "name": "dsh-purge-plugin",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Eight backed-up DSH runtime patches and a global AGENTS.md editor",
   "type": "module",
   "main": "./lib/index.js",

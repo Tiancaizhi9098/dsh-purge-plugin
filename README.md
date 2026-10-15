@@ -1,13 +1,14 @@
-# dsh-purge-plugin 0.2.2
+# dsh-purge-plugin 0.2.3
 
 提供一份全局 AGENTS.md 的网页编辑器，并按用户提供的 dsh_purge.py（署名：小杨）应用 8 项 DSH 源码补丁。设置入口为 **左下角设置 → 全局 AGENTS**，进入后直接编辑和保存；历史备份默认折叠。插件详情页只有 DSH 自带的插件管理功能。
 
-## 0.2.2 修复
+## 0.2.3 修复（包含 0.2.2）
 
 - 第 4 项同时校验并修改主配置和 Standard、PTC、Cordis 三种预设，保留各自的工作目录后缀。旧版仅修改主配置的安装会显示 **7/8**，不会误报完整覆盖。
 - 兼容预设的单行及折叠 YAML、LF/CRLF；重复应用不会重复追加。
 - 兼容 macOS `/var` 与 `/private/var`、符号链接路径；通过路径别名启动的应用也必须先退出。
 - Mac 查询分别报告代码签名和 `ElectronAsarIntegrity` 校验结果，任一校验失败返回非零退出码。
+- ASAR 回归测试统一使用同步路径规范化，避免 Windows 的 `RUNNER~1` 短路径与长路径表示差异导致误判；不改变运行时代码。
 
 仅支持 DSH **0.2.0-rc.2**。磁盘补丁状态不等于当前会话已重新加载，也不代表模型服务端会改变响应策略。
 
@@ -41,7 +42,7 @@
 要求 Node.js ^22.19.0 或 >=24。补丁严格校验 DSH 包版本为 0.2.0-rc.2；其他版本或原文不匹配时整批停止，在页面明确报错。
 
 使用已构建的包：
-dsh plugin --profile web add "/absolute/path/dsh-purge-plugin-0.2.2.tgz"
+dsh plugin --profile web add "/absolute/path/dsh-purge-plugin-0.2.3.tgz"
 
 桌面 profile 使用 `--profile desktop`。发布安装包见 [GitHub Releases](https://github.com/Tiancaizhi9098/dsh-purge-plugin/releases)。
 

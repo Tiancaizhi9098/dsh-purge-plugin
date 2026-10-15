@@ -1,4 +1,4 @@
-# 0.2.2 验证记录
+# 0.2.3 验证记录
 
 验证日期：2026-10-16。补丁严格适配 DSH 0.2.0-rc.2。
 
@@ -16,4 +16,6 @@
 
 测试不修改 `/Applications` 的正式应用或实际 AGENTS.md，不发送模型请求。尚未在此版本的正式 DSH 桌面上执行升级和 UI 启动验证。
 
-Ubuntu/macOS/Windows × Node 22/24 的 GitHub Actions 矩阵已配置；本地测试通过不代表其他平台已经运行。GitHub 上的实际结果以 Actions 为准。
+0.2.2 首次 GitHub Actions 的 Ubuntu/macOS × Node 22/24 均通过；Windows 的两项 ASAR 路径断言因异步与同步 realpath 对 `RUNNER~1` 短路径的表示差异失败。0.2.3 统一测试预期使用与运行时一致的同步路径规范化，未改变运行时代码。
+
+Ubuntu/macOS/Windows × Node 22/24 的完整矩阵仍保留，0.2.3 的实际结果以 GitHub Actions 为准；本机通过不代替跨平台运行结果。
