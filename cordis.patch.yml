@@ -1,0 +1,3 @@
+- insert:
+    - id: dsh-purge
+      name: dsh-purge-plugin
